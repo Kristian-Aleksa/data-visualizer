@@ -74,6 +74,7 @@ B13's treemap and G05's tree use d3-hierarchy.
 
 - Vite + React + TypeScript, a static single-page app. Routes: `/` (gallery), `/chart/:id` (editor) and `/embed/:id`.
 - `vercel.json` sends every address to the app, so links like `/chart/b01` work when hosted.
+- Vercel Web Analytics counts visits on the built site only (`src/main.tsx`). Its `beforeSend` keeps just the path, because share links carry the chart's data after the `#`. Exported code doesn't include it.
 
 ## Tests
 
@@ -84,5 +85,5 @@ B13's treemap and G05's tree use d3-hierarchy.
 
 All versions are pinned exactly and the lockfile is committed.
 
-- **App:** react, react-dom, react-router, zustand, lz-string, papaparse, mediabunny, opentype.js, d3-force, d3-hierarchy, d3-shape, and the @fontsource packages for Roboto, Fira Sans, Montserrat, IBM Plex Serif, PT Serif, JetBrains Mono and Cascadia Mono.
+- **App:** react, react-dom, react-router, @vercel/analytics, zustand, lz-string, papaparse, mediabunny, opentype.js, d3-force, d3-hierarchy, d3-shape, and the @fontsource packages for Roboto, Fira Sans, Montserrat, IBM Plex Serif, PT Serif, JetBrains Mono and Cascadia Mono.
 - **Development:** typescript, vite, @vitejs/plugin-react, esbuild, vitest, @playwright/test.

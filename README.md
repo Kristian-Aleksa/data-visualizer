@@ -2,7 +2,7 @@
 
 Graphit is a website for designing charts. Pick one of 65 chart designs, change its data, text, fonts, colours, layout, interactivity and animation, then export it as **SVG**, **MP4/WebM video** or **code** you can paste straight into a website or app.
 
-Everything runs in your browser. Nothing is uploaded to a server.
+Everything runs in your browser. Your data and charts are never uploaded to a server.
 
 ![The Graphit gallery in the Wire palette](docs/screenshots/gallery-palette.png)
 
@@ -89,6 +89,8 @@ Only the files the project needs are uploaded. `.gitignore` leaves out `node_mod
 4. Click **Deploy**. After about a minute you get a web address for the site.
 
 Every time you commit and push a change from GitHub Desktop, Vercel rebuilds the site automatically. `vercel.json` sends every page address to the app, so links like `/chart/b01` work.
+
+**3. See your visitors (optional).** The app includes Vercel Web Analytics. In the Vercel project, open **Analytics** and click **Enable**; visits then show up there. It uses no cookies and records only the page's path, so the chart data in share links (after the `#`) is never sent. It doesn't run when you use `npm run dev`.
 
 ## Use an exported chart
 
