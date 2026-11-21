@@ -41,71 +41,6 @@ Every chart can be set in one of nine fonts. Pick one under **Text → Font** in
 | Serif | IBM Plex Serif, PT Serif |
 | Monospaced | JetBrains Mono, Cascadia Mono |
 
-## Run it on your computer
-
-You need [Node.js](https://nodejs.org) version 24.
-
-1. Open the Terminal app.
-2. Type `cd ` (with a space after it), drag the project folder from Finder into the Terminal window, then press Enter.
-3. Install the dependencies. You only need to do this once, and again whenever `package.json` changes:
-   ```sh
-   npm install
-   ```
-4. Start the app:
-   ```sh
-   npm run dev
-   ```
-5. Open http://localhost:5173 in your browser. To stop the app, click the Terminal window and press `Ctrl+C`.
-
-## Other commands
-
-| Command | What it does |
-|---|---|
-| `npm run build` | Checks the code for errors, then builds the website into `dist/` (this is what Vercel runs) |
-| `npm run preview` | Serves the built `dist/` folder on your computer |
-| `npm test` | Runs the fast unit tests (Vitest) |
-| `npm run test:e2e` | Runs the browser tests (Playwright). The first time, run `npx playwright install chromium` |
-| `npm run gen:metrics` | Rebuilds the fonts' letter-width tables (used to wrap titles and place labels) after a font changes |
-| `npm run geo` | Downloads the map data and rebuilds the maps' outline files |
-
-## Put it online
-
-The site is a static Vite app, so it can be hosted on Vercel for free.
-
-**1. Upload the folder to GitHub.** [GitHub Desktop](https://desktop.github.com) is the easiest way:
-
-1. Install GitHub Desktop and sign in with your GitHub account.
-2. Choose **File → Add Local Repository…** and pick the project folder.
-3. If it lists changes, type a short summary in the box at the bottom left and click **Commit to main**.
-4. Click **Publish repository**. Keep **Keep this code private** ticked unless you want it public, then click **Publish Repository**.
-
-Only the files the project needs are uploaded. `.gitignore` leaves out `node_modules/`, the `dist/` build folder, downloaded map data and test output, because Vercel rebuilds those itself.
-
-**2. Deploy it on Vercel:**
-
-1. Go to [vercel.com](https://vercel.com) and sign up or log in with your GitHub account.
-2. Click **Add New… → Project**, find the repository in the list and click **Import**.
-3. Keep the settings Vercel detects: framework **Vite**, build command `npm run build`, output folder `dist`. Vercel uses Node.js 24, as `package.json` asks.
-4. Click **Deploy**. After about a minute you get a web address for the site.
-
-Every time you commit and push a change from GitHub Desktop, Vercel rebuilds the site automatically. `vercel.json` sends every page address to the app, so links like `/chart/b01` work.
-
-**3. See your visitors (optional).** The app includes Vercel Web Analytics. In the Vercel project, open **Analytics** and click **Enable**; visits then show up there. It uses no cookies and records only the page's path, so the chart data in share links (after the `#`) is never sent. It doesn't run when you use `npm run dev`.
-
-## Use an exported chart
-
-Open a chart, then the **Code** tab on the right. Each format is ready to paste as it is:
-
-| Format | Where it goes |
-|---|---|
-| HTML snippet | Any web page, or an HTML/code block in WordPress, Squarespace, Ghost, Wix or Webflow. Paste it more than once if you like. |
-| Complete HTML page | Its own `.html` file. Opens by double-click. |
-| React component | Save the file in your app and render it, e.g. `<RungBarsChart />`. Works in Next.js and Vite. |
-| JavaScript module | Vue, Svelte, Angular or plain JavaScript: `mountChart(element)`, or the `<graphit-b01>` tag. |
-| Embed | An `<iframe>`, for Notion, Framer or a page that limits code size. |
-
-The chart draws inside its own sealed box (a shadow root), so your site's styles can't break it. Fonts load from Google Fonts, are embedded in the file, or come from your own site. Aeonik isn't on Google Fonts, so a chart set in Aeonik always embeds it.
-
 ## How it works
 
 - **One rule for every chart.** A chart is drawn by a pure function of data, settings, palette and animation time. The live preview, SVG export, every video frame and the code exports all call that same function, so they always match.
@@ -131,15 +66,6 @@ scripts/        build helpers: per-chart export bundles, letter widths, map outl
 tests/          unit tests (Vitest) and browser tests (Playwright)
 docs/           architecture notes and the screenshots above
 ```
-
-## Add a new chart
-
-1. Create `src/charts/<family>/<ID>.ts` and export `defineChart({...})`. Copy the structure of `src/charts/basics/B01.ts`:
-   - the data columns and the demo data;
-   - the chart's own settings, each with a label, range and default;
-   - a `draw(ctx)` function that draws the chart.
-2. Add it to `src/charts/registry.ts`, and give it a gallery entry in `src/charts/catalog.ts`.
-3. Run `npm test` and `npm run test:e2e`. The tests in `tests/unit/charts.test.ts` and `tests/e2e/charts.spec.ts` check every registered chart automatically.
 
 ## Fonts and map data
 
