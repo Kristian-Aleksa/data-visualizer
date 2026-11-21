@@ -1,0 +1,24 @@
+# Dependencies and build output (Vercel installs and builds these itself)
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Downloaded map data (`npm run geo` fetches it)
+/.cache/
+
+# Tool caches
+.vite/
+
+# Test output
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Environment, editor and OS files
+.env
+.env.*
+.vercel
+.DS_Store
+*.log
